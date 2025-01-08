@@ -1,5 +1,8 @@
 # Here your solution
 import datetime
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class BankAccount:
     def __init__(self, account_number, balance=0.0):
@@ -22,7 +25,7 @@ class DepositService:
                 f"{datetime.datetime.now()}: Deposited {amount} into {self.account.account_number}\n"
             )
 
-        print(f"Sending email notification: {amount} deposited into account {self.account.account_number}.")
+        logging.info(f"Sending email notification: {amount} deposited into account {self.account.account_number}.")
 
 
 class WithdrawService:
@@ -42,7 +45,7 @@ class WithdrawService:
                 f"{datetime.datetime.now()}: Withdrew {amount} from {self.account.account_number}\n"
             )
 
-        print(f"Sending email notification: {amount} withdrawn from account {self.account.account_number}.")
+        logging.info(f"Sending email notification: {amount} withdrawn from account {self.account.account_number}.")
 
 
 class StatementService:
@@ -52,13 +55,13 @@ class StatementService:
     def execute(self):
         statement = f"Statement for Account: {self.account.account_number}\nBalance: {self.account.balance}\n"
 
-        print(statement)
+        logging.info(statement)
 
         with open("statements.log", "a") as stmt_file:
             stmt_file.write(
                 f"{datetime.datetime.now()}: Generated statement for {self.account.account_number}\n"
             )
-        print(f"Sending email with statement for account {self.account.account_number}...")
+        logging.info(f"Sending email with statement for account {self.account.account_number}...")
 
 
 class BankSystem:
@@ -79,7 +82,7 @@ class BankSystem:
         statement_service.execute()
 
 
-# bank_system = BankSystem(1954484654) 
-# bank_system.deposit(109)
-# bank_system.withdraw(22)
-# bank_system.generate_statement()
+bank_system = BankSystem(1954484654) 
+bank_system.deposit(109)
+bank_system.withdraw(22)
+bank_system.generate_statement()
